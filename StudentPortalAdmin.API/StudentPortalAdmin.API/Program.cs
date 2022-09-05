@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StudentPortalAdmin.API.DataModel;
+using StudentPortalAdmin.API.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<StudentAdminContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaulConnection")));
-
+builder.Services.AddScoped<IStudentRepository, SqlStudentRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

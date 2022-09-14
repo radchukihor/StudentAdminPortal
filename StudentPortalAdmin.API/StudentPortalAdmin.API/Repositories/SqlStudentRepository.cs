@@ -1,5 +1,6 @@
 ﻿using System;
 using StudentPortalAdmin.API.DataModel;
+using Microsoft.EntityFrameworkCore;
 
 namespace StudentPortalAdmin.API.Repositories
 {
@@ -11,9 +12,9 @@ namespace StudentPortalAdmin.API.Repositories
         {
             _context = context;
         }
-        public List<Student> GetStudents()
+        public async Task<List<Student>> GetStudentsAsync()
         {
-            return _context.Student.ToList();
+            return await _context.Student.Include(nameof(Gender)).Include(nameof(Address)).ToListAsync();
         }
     }
 }
